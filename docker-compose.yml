@@ -5,9 +5,9 @@ services:
     container_name: mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD: "example"
-      - MYSQL_USER: root
-      - MYSQL_PASS: example
+      MYSQL_ROOT_PASSWORD: "example"
+      MYSQL_USER: root
+      MYSQL_PASS: example
     #  MYSQL_DATABASE: bitnami_redmine
     # DB에 한글을 사용하기 위한 명령
     command:
