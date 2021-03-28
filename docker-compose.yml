@@ -1,38 +1,45 @@
+  
+# Kari Redmine 2
 version: '2'
+
 services:
-  db:
-    image: 'mysql:5.7'
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_USER: root
-      MYSQL_PASS: example
-      MYSQL_DATABASE: bitnami_redmine
-    #  MYSQL_DATABASE: bitnami_redmine
-    # DB에 한글을 사용하기 위한 명령
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-    volumes:
-      - './RedmineData/mysql:/var/lib/mysql'
-      
+
   redmine:
-    image: 'docker.io/bitnami/redmine:4-debian-10'
+    #image: 'docker.io/bitnami/redmine:4-debian-10'
+    image: 'syredmine:0.9'
+    container_name: redmine
+    ports:
+      - '80:3000'
     environment:
       REDMINE_DB_MYSQL: db
       REDMINE_DB_USERNAME: root
       REDMINE_DB_PASSWORD: example
-      REDMINE_DB_DATABASE: bitnami_redmine
-      #- REDMINE_DB_ENCODING: utf8
-    ports:
-      - '80:3000'
+      #REDMINE_DB_DATABASE: bitnami_redmine
+
+      # DB에 한글을 사용하기 위한 명령
+      REDMINE_DB_ENCODING: utf8
     volumes:
+      # Redmine에서 기본으로 저장하는 Data의 모음 바인딩. plugins, config, publid/pluginAsset, files
+      #- './RedmineData/redmine/config:/opt/bitnami/redmine/config'
       #- './RedmineData/redmine/files:/opt/bitnami/redmine/files'
       - './RedmineData/redmine:/bitnami'
       # CKEditor에서 사용하는 이미지를 관리하는 볼륨 바인딩
       - './RedmineData/redmine/public/system:/opt/bitnami/redmine/public/system'
       # theme 볼륨 바인딩
       - './RedmineData/redmine/public/themes:/opt/bitnami/redmine/public/themes'
-    depends_on:
-      - db
+
+  db:
+    image: 'mysql:5.7'
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      #MYSQL_USER: root
+      #MYSQL_PASS: example
+      MYSQL_DATABASE: bitnami_redmine
+    # DB에 한글을 사용하기 위한 명령
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - './RedmineData/mysql:/var/lib/mysql'
