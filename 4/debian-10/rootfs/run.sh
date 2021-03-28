@@ -13,4 +13,6 @@ chmod -R 1777 /opt/bitnami/redmine/tmp
 
 info "Starting redmine..."
 cd /opt/bitnami/redmine || exit 1
+exec gosu ${USER} bundle exec rake db:migrate RAILS_ENV=production
+exec gosu ${USER} bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 exec gosu ${USER} bundle exec passenger start -e ${RAILS_ENV} --pid-file ${PID_FILE} --log-file ${LOG_FILE} -p 3000

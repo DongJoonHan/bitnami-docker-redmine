@@ -1,5 +1,10 @@
+# Dockerfile for X
+# Revision 3
+# 2021.03
+
 FROM docker.io/bitnami/minideb:buster
-LABEL maintainer "Bitnami <containers@bitnami.com>"
+#LABEL maintainer "Bitnami <containers@bitnami.com>"
+LABEL maintainer "Synetics"
 
 ENV PATH="/opt/bitnami/ruby/bin:/opt/bitnami/postgresql/bin:/opt/bitnami/mysql/bin:/opt/bitnami/git/bin:/opt/bitnami/common/bin:/opt/bitnami/nami/bin:$PATH"
 
@@ -41,6 +46,17 @@ ENV BITNAMI_APP_NAME="redmine" \
     SMTP_USER=""
 
 EXPOSE 3000
+
+# 필요한 OS 패키지 설치
+RUN         apt-get -y update && \
+            apt-get install -y -qq  build-essential libstdc++6 vim libmariadbclient-dev-compat postgresql-client libpq5 libpq-dev libmagickwand-dev libssl-dev cmake libssh2-1 libssh2-1-dev libgpg-error-dev openssh-client openssh-server git perl && \
+            rm -rf /var/lib/apt/lists/*
+
+COPY        plugins /opt/bitnami/redmine/plugins
+WORKDIR     /opt/bitnami/redmine
+RUN         bundle install --no-deployment
+
+## Timezone 설정
 
 ENTRYPOINT [ "/app-entrypoint.sh" ]
 CMD [ "/run.sh" ]
