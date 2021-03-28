@@ -1,10 +1,10 @@
 {
     "git": {
         "arch": "amd64",
-        "digest": "e65ceae013d3039ce95248f4bbae139b637ca2fef25721ce72e692f4dbb791e3",
+        "digest": "08cc25cd961bf4ea1695b9d11cd4dc0ebb2f4a00afd6cacbc18c81d6cd104aa2",
         "distro": "debian-10",
         "type": "NAMI",
-        "version": "2.30.2-0"
+        "version": "2.31.1-0"
     },
     "gosu": {
         "arch": "amd64",
@@ -29,10 +29,10 @@
     },
     "redmine": {
         "arch": "amd64",
-        "digest": "b0872cfb24823d44df9addfd1d217f7085bada5846fefe73b141bf397cc8cd1c",
+        "digest": "756e26c6a3bd03f3353c9bc1555245d584962ff4da2ecaa2e0f1937a49e7768a",
         "distro": "debian-10",
         "type": "NAMI",
-        "version": "4.1.1-2"
+        "version": "4.2.0-0"
     },
     "ruby": {
         "arch": "amd64",

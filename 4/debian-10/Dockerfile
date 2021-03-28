@@ -16,14 +16,14 @@ RUN /build/install-nami.sh
 RUN bitnami-pkg install ruby-2.6.6-2 --checksum 4a1c68af2b652fd873124ebb00ec79574007105730059539b1d3223bbea2af34
 RUN bitnami-pkg install postgresql-client-11.11.0-0 --checksum 648e3913acf696c24143dfca8081d22f655f6a70abc542f5daf3f3cd9aa8e2e9
 RUN bitnami-pkg install mysql-client-10.3.28-0 --checksum 9398376ca9e2033d5bc193232e8aa9b57d91d4ccf06fa67bfa0d30ef36e44c25
-RUN bitnami-pkg install git-2.30.2-0 --checksum e65ceae013d3039ce95248f4bbae139b637ca2fef25721ce72e692f4dbb791e3
+RUN bitnami-pkg install git-2.31.1-0 --checksum 08cc25cd961bf4ea1695b9d11cd4dc0ebb2f4a00afd6cacbc18c81d6cd104aa2
 RUN bitnami-pkg install tini-0.19.0-1 --checksum 9b1f1c095944bac88a62c1b63f3bff1bb123aa7ccd371c908c0e5b41cec2528d
-RUN bitnami-pkg unpack redmine-4.1.1-2 --checksum b0872cfb24823d44df9addfd1d217f7085bada5846fefe73b141bf397cc8cd1c
+RUN bitnami-pkg unpack redmine-4.2.0-0 --checksum 756e26c6a3bd03f3353c9bc1555245d584962ff4da2ecaa2e0f1937a49e7768a
 RUN bitnami-pkg install gosu-1.12.0-2 --checksum 4d858ac600c38af8de454c27b7f65c0074ec3069880cb16d259a6e40a46bbc50
 
 COPY rootfs /
 ENV BITNAMI_APP_NAME="redmine" \
-    BITNAMI_IMAGE_VERSION="4.1.1-debian-10-r286" \
+    BITNAMI_IMAGE_VERSION="4.2.0-debian-10-r0" \
     OS_ARCH="amd64" \
     OS_FLAVOUR="debian-10" \
     OS_NAME="linux" \
@@ -52,9 +52,12 @@ RUN         apt-get -y update && \
             apt-get install -y -qq  build-essential libstdc++6 vim libmariadbclient-dev-compat postgresql-client libpq5 libpq-dev libmagickwand-dev libssl-dev cmake libssh2-1 libssh2-1-dev libgpg-error-dev openssh-client openssh-server git perl && \
             rm -rf /var/lib/apt/lists/*
 
-COPY        plugins /opt/bitnami/redmine/plugins
-WORKDIR     /opt/bitnami/redmine
-RUN         bundle install --no-deployment
+#COPY        plugins /opt/bitnami/redmine/plugins
+#WORKDIR     /opt/bitnami/redmine
+
+#RUN		bundle config set disable_multisource true
+# RUN         bundle install --no-deployment
+#RUN         bundle install
 
 ## Timezone 설정
 
