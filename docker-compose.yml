@@ -11,10 +11,10 @@ services:
     ports:
       - '80:3000'
     environment:
-      REDMINE_DB_MYSQL: db
+      REDMINE_DB_MYSQL: mysql
       REDMINE_DB_USERNAME: root
       REDMINE_DB_PASSWORD: example
-      #REDMINE_DB_DATABASE: bitnami_redmine
+      #REDMINE_DB_NAME: bitnami_redmine
 
       # DB에 한글을 사용하기 위한 명령
       REDMINE_DB_ENCODING: utf8
@@ -28,14 +28,14 @@ services:
       # theme 볼륨 바인딩
       - './RedmineData/redmine/public/themes:/opt/bitnami/redmine/public/themes'
 
-  db:
-    image: 'mysql:5.7'
+  mysql:
+    image: 'mysql:5.7.33'
     container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
-      #MYSQL_USER: root
-      #MYSQL_PASS: example
+      MYSQL_USER: djhan
+      MYSQL_PASS: example
       MYSQL_DATABASE: bitnami_redmine
     # DB에 한글을 사용하기 위한 명령
     command:

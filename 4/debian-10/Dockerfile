@@ -52,14 +52,14 @@ RUN         apt-get -y update && \
             apt-get install -y -qq  build-essential libstdc++6 vim libmariadbclient-dev-compat postgresql-client libpq5 libpq-dev libmagickwand-dev libssl-dev cmake libssh2-1 libssh2-1-dev libgpg-error-dev openssh-client openssh-server git perl && \
             rm -rf /var/lib/apt/lists/*
 
-#COPY        plugins /opt/bitnami/redmine/plugins
-#WORKDIR     /opt/bitnami/redmine
-
-#RUN		bundle config set disable_multisource true
-# RUN         bundle install --no-deployment
-#RUN         bundle install
+COPY        plugins /opt/bitnami/redmine/plugins
+WORKDIR     /opt/bitnami/redmine
+RUN	    bundle config unset deployment
+RUN         bundle install --no-deployment
 
 ## Timezone 설정
+ENV TZ=Asia/Seoul
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENTRYPOINT [ "/app-entrypoint.sh" ]
 CMD [ "/run.sh" ]
